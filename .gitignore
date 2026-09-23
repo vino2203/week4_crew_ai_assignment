@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# Virtual environment
+.venv/
+venv/
+
+# Secrets — never commit real API keys / DB credentials
+backend/.env
+
+# Generated FAISS index / ingested data (regenerate via `python backend/main.py --seed`)
+backend/data/faiss_index/
+
+# OS
+.DS_Store
+
+# Misc local screenshots dropped in project root
+Screenshot *.png

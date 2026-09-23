@@ -1,0 +1,40 @@
+knowledge_retrieval_task:
+  description: >
+    Use the Hybrid RAG tool to search the internal knowledge base for the customer
+    question: "{query}". Inspect the returned passages, their document names, page
+    numbers, and similarity scores, and the linked Neo4j graph context.
+  expected_output: >
+    A strict JSON object with keys: "response" (string answer grounded ONLY in retrieved
+    passages), "confidence_score" (number 0-100, the accuracy/confidence percentage),
+    "citations" (list of objects with "document" and "page"), and "graph_context"
+    (short string summary of related graph entities, or "" if none). Output raw JSON only.
+
+web_intelligence_task:
+  description: >
+    Use the SerpAPI Web Search tool to research the customer question: "{query}" on the
+    live web. Prefer queries that would surface official product docs, forums, or news
+    relevant to the question.
+  expected_output: >
+    A strict JSON object with keys: "response" (string summary of web findings),
+    "relevance_score" (number 0-100), "queries_used" (list of strings), and "sources"
+    (list of objects with "title" and "url"). Output raw JSON only.
+
+resolution_synthesis_task:
+  description: >
+    Combine the internal knowledge base findings and the web intelligence findings for
+    the customer question "{query}" into one final, empathetic, actionable resolution.
+    Do not fabricate anything not supported by either specialist's findings.
+  expected_output: >
+    A strict JSON object with keys: "final_resolution" (string, the customer-facing
+    answer) and "sources_used" (list of strings, e.g. "internal_kb", "web_search").
+    Output raw JSON only.
+
+memory_archival_task:
+  description: >
+    Use the Memory Archival tool to persist this interaction for session "{session_id}"
+    and customer "{customer_id}": the original query "{query}", the final resolution
+    produced by the Support Lead, and the citations/sources used.
+  expected_output: >
+    A strict JSON object with keys: "memory_confirmation" (string, human-readable
+    confirmation message), "session_id" (string), and "persisted" (boolean, true if the
+    write succeeded). Output raw JSON only.

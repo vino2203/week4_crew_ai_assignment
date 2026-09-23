@@ -1,0 +1,13 @@
+crewai>=0.86.0
+faiss-cpu>=1.8.0
+sentence-transformers>=3.0.0
+neo4j>=5.22.0
+google-search-results>=2.4.2
+python-dotenv>=1.0.1
+pyyaml>=6.0.1
+pypdf>=4.3.0
+# Pinned for torch/faiss ABI compatibility (torch has no macOS x86_64 wheels
+# past 2.2.2, which requires numpy 1.x; scipy is pinned to match).
+numpy<2
+scipy<1.14
+streamlit>=1.38.0
